@@ -1,2 +1,3 @@
 useDynLib(optimise2)
-export("optimise2")
+export(lmcholsolve)
+export(optimise2)

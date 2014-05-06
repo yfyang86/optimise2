@@ -18,7 +18,7 @@
 
 //#include <RcppGSL.h>
 #include <math.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <string.h>
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_math.h>
@@ -132,7 +132,7 @@ try{
   
      
     if(tracing>.5){
-    printf ("%5d [%.7f, %.7f] %.7f %+.7f %.7f\n",
+    Rprintf ("%5d [%.7f, %.7f] %.7f %+.7f %.7f\n",
           iter, a, b,
           m, tol , b - a);
     
@@ -146,14 +146,14 @@ try{
  
 
   if(tracing>.5){
-    printf ("using %s method\n",
+    Rprintf ("using %s method\n",
           gsl_min_fminimizer_name (s));
 
-  printf ("%5s [%9s, %9s] %9s %10s %9s\n",
+  Rprintf ("%5s [%9s, %9s] %9s %10s %9s\n",
           "iter", "lower", "upper", "min",
           "err", "err(est)");
 
-  printf ("%5d [%.7f, %.7f] %.7f %+.7f %.7f\n",
+  Rprintf ("%5d [%.7f, %.7f] %.7f %+.7f %.7f\n",
           iter, a, b,
           m, m , b - a);
   
@@ -173,9 +173,9 @@ try{
         = gsl_min_test_interval (a, b, tol, 0.000);
 
       if(tracing>.5){if (status == GSL_SUCCESS)
-        printf ("Converged:\n");
+        Rprintf ("Converged:\n");
 
-      printf ("%5d [%.7f, %.7f] "
+      Rprintf ("%5d [%.7f, %.7f] "
               "%.7f %+.7f %.7f\n",
               iter, a, b,
               m, m, b - a);

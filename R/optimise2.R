@@ -1,6 +1,6 @@
-optimise2 <-
-function(f, interval, ..., lower = min(interval), upper = max(interval), 
-    maximum = FALSE,tol = .Machine$double.eps^0.25,initials=runif(1,lower,upper),trace=F,maxit=100){
+optimise2 <-function(f, interval, ..., lower = min(interval), upper = max(interval), 
+                    maximum = FALSE,tol = .Machine$double.eps^0.25,initials=runif(1,lower,upper),
+                    trace=F,maxit=100){
 
 optimise2R<-function (f, interval, ..., lower = min(interval), upper = max(interval), 
     maximum = FALSE,tol = .Machine$double.eps^0.25,initials=runif(1,lower,upper),trace=T){
@@ -27,4 +27,13 @@ val=x[id,1];
  
 if (maximum) return(list(maximum = val, objective = f(val, ...)));
 return(list(minimum = val, objective = f(val, ...)));
+}
+
+lmcholsolve<-function(x,y){
+    if (dim(x)[1]<250)return(
+    .Call("quicksolve1",
+    Mat1=x,
+    Yresp=y
+    ));
+    return (solve(x,y));#using vecBLAS/open BLAS/MTK
 }
