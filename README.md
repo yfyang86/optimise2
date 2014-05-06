@@ -7,4 +7,5 @@ The optimise(stat) in R sometimes fails to converge to global optimization point
 
 In fact, this package may only depend on libgsl. I fail to configure it on windows if Cygwin is not used.
 
+Some c functions are modifications of survival/base. 
 
