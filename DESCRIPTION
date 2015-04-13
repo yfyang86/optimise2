@@ -1,14 +1,13 @@
 Package: optimise2
 Type: Package
-Title: optimise in 1 dimension.
+Title: optim corrections.
 Version: 1.0
 Date: 2014-04-17
 Author: Yifan Yang
 Maintainer: Yifan Yang <yifan.yang@uky.edu>
 Description: The rule used here is gsl_min_fminimizer_quad_golden with more
-    than one guess.
+    than one guess. Constrained (linear/equal region ) MLE.
 License: GPL
-Depends:
-    Rcpp (>= 0.10.2),
-    RcppGSL
+Depends: Rcpp (>= 0.10.2), RcppGSL, quadprog
 NeedsCompilation: yes
+
