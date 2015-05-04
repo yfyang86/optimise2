@@ -48,6 +48,44 @@ On windows, due to CRAN uses a strange path, you have to do the following
  lambda_Select(Yvec,Xmat)
  ```
 
+Example:
+
+ ```r    
+ library(optimise2)
+ N = 100
+ p = floor(N*.8)
+ q = p/(1:2)
+ ratio = c(.05,.1,.2)
+ qi=2
+ ri=1
+ ## iid case
+ SIMU=100
+ RE = numeric(SIMU)
+ for (simu in 1:SIMU){
+   Xmat = matrix(rnorm(N*p),ncol=p)
+   beta0 = rnorm(p,sd=2)
+   ind.zero = sample(1:p,floor(p*0.9))
+   ind.nzero = (1:p)[-ind.zero]
+   beta0[ind.zero] = 0. # 90% beta <- 0
+   epsilon = rnorm(N)
+   Xmat = Xmat - apply(Xmat,2,mean)
+   Yvech = Xmat%*%beta0 + epsilon
+   Yvec = Yvech - mean(Yvech)
+   
+   lambda_Select(Yvec,Xmat,nPsep = q[qi], perc = ratio[ri]) -> re
+   uuz <- (abs(re$result$beta[,sum(re$selection)] )>1e-14)
+   RE[simu] = sum((ind.nzero) %in% which(uuz))/sum(uuz)
+   cat(simu,'-th RE: ',RE[simu],'\n')
+   if (simu==1)plot(summary(re)[-2],type='b',col=rainbow(SIMU)[simu],pch='+',cex=.5,ylim=c(0,q[qi]*.8))
+   points(summary(re)[-2],type='b',col=rainbow(SIMU)[simu],pch='+',cex=.5,ylim=c(0,q[qi]*.8))
+ }
+ summary(RE)
+ #abline(h=length(ind.nzero),lty=2,col=2)
+ ```
+
+
+ ![Pattern](./instr/doc/lambdavsnf.png)
+
 ### Linear Model with $H_0: c^\top \beta = c_0$
  
  ```r

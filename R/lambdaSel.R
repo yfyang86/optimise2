@@ -38,7 +38,8 @@ fix_missing_names <-function(x){
 lambda_Select <- function(Yvec,Xmat,lambdas=seq(from=.001,to=1,length.out=50),nPsep=20,perc = .2,...){
     u = dim(Xmat)
     lambdas = sort(lambdas)
-    if (!("sizei"%in%ls())) sizei = 10L
+    # debug if (!("sizei"%in%ls())) sizei = 10L
+	sizei=nPsep
    
     sampleN = u[1]
     samplep = u[2]
@@ -90,4 +91,13 @@ lambda_Select <- function(Yvec,Xmat,lambdas=seq(from=.001,to=1,length.out=50),nP
         rownames(u) = paste("Lam",1:(dim(u)[1]),sep='')
         print(u,digits=5)
  }
- 
+
+
+summary.lambda_select <- function(x){
+        u = data.frame(Lambda = sort(x$result$lambda),
+                       Select = x$selection,
+                       NFalse = x$result[[length(x$result)]])
+                       
+        rownames(u) = paste("Lam",1:(dim(u)[1]),sep='')
+return(u); 
+}

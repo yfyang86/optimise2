@@ -1,6 +1,6 @@
 # set by configure
 GSL_CFLAGS = -I/usr/local/include
-GSL_LIBS = -L/usr/local/lib -lgsl
+GSL_LIBS = -L/usr/local/lib -lgsl -lm
 RCPP_LDFLAGS = 
 
 # combine with standard arguments for R
