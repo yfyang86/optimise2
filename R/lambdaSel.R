@@ -69,7 +69,13 @@ lambda_Select <- function(Yvec,Xmat,lambdas=seq(from=.001,to=1,length.out=50),nP
              )
      }
      re[[length(re)+1]] = perc
+	   names(re)[length(re)] = "perc"
+     re[[length(re)+1]] =samplep
+	   names(re)[length(re)] = "samplep"
+	   re[[length(re)+1]] = Yvec-Xmat%*%re$beta
+     names(re)[length(re)] = "residual"
      re[[length(re)+1]] = apply(re$beta,2,function(x) sum(xlabel[abs(x)>(1e-14)] %in% uuz ))
+	   names(re)[length(re)] = "L0"
      U = list(result=re,selection=apply(re$beta,2,matchcol));
      "lambda_select" -> class(U)
      return(U);
@@ -82,7 +88,7 @@ lambda_Select <- function(Yvec,Xmat,lambdas=seq(from=.001,to=1,length.out=50),nP
         print(x$result);
      cat('------------------\n')
      cat('Lambda Information\n Cut-off = ',
-         x$result[[length(x$result)-1]]*100,"%\n")
+         x$result$perc *100,"%\n")
      cat('------------------\n')
         u = data.frame(Lambda = sort(x$result$lambda),
                        Select = x$selection,
@@ -101,3 +107,11 @@ summary.lambda_select <- function(x){
         rownames(u) = paste("Lam",1:(dim(u)[1]),sep='')
 return(u); 
 }
+
+
+predict.lambda_select <- function(data,model){
+  if (class(model)!="lambda_select") {warning("model MUST be a lambda_select class.");return(NULL);}
+  data = as.matrix(data)
+  data%*%model$result$beta[1:(model$result$samplep),]
+}
+

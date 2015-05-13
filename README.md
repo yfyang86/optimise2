@@ -68,7 +68,7 @@ Example:
    ind.nzero = (1:p)[-ind.zero]
    beta0[ind.zero] = 0. # 90% beta <- 0
    epsilon = rnorm(N)
-   Xmat = Xmat - apply(Xmat,2,mean)
+   Xmat  = t(t(Xmat) - apply(Xmat,2,mean))
    Yvech = Xmat%*%beta0 + epsilon
    Yvec = Yvech - mean(Yvech)
    
@@ -83,8 +83,12 @@ Example:
  #abline(h=length(ind.nzero),lty=2,col=2)
  ```
 
-
  ![Pattern](./instr/doc/lambdavsnf.png)
+
+Test on verification set:
+
+ ![P2](./instr/doc/LambdavsPMSE.png)
+ 
 
 ### Linear Model with $H_0: c^\top \beta = c_0$
  

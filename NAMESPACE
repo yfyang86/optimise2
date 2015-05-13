@@ -7,4 +7,5 @@ export(lmconst)
 export(lambda_Select)
 export(print.lambda_select)
 export(summary.lambda_select)
+export(predict.lambda_select)
 
