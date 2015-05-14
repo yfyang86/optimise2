@@ -24,6 +24,7 @@ fix_missing_names <-function(x){
 #' @param lambdas Proposed lambda, default value is seq(from=.001,to=1,length.out=50)
 #' @param nPsep Number of independent simulation data.
 #' @param perc Stopping percentage
+#' @param iidSampletype Random number generator. Especially, users could define a custom function "r_usr_f".
 #' @return result Result from glmnet
 #' @return selection T/F of lambdas. F means
 #' @examples
@@ -35,7 +36,9 @@ fix_missing_names <-function(x){
 #' Yvec = Xmat%*%beta0 + epsilon
 #' lambdas = seq(from=.001,to=1,length.out=50) # a vec
 #' lambda_Select(Yvec,Xmat)
-lambda_Select <- function(Yvec,Xmat,lambdas=seq(from=.001,to=1,length.out=50),nPsep=20,perc = .2,...){
+lambda_Select <- function(
+                        Yvec,Xmat,lambdas=seq(from=.001,to=1,length.out=50),nPsep=20,perc = .2,
+                        iidSampletype = "rnorm",...){
     u = dim(Xmat)
     lambdas = sort(lambdas)
     # debug if (!("sizei"%in%ls())) sizei = 10L
@@ -43,9 +46,24 @@ lambda_Select <- function(Yvec,Xmat,lambdas=seq(from=.001,to=1,length.out=50),nP
    
     sampleN = u[1]
     samplep = u[2]
-
-
-    iidSampletype = "rnorm"
+    if (!(iidSampletype%in%c('rnorm','rf','rt','rchisq','rbin'))){
+    	iidSampletype = "rnorm";
+    }else{
+     if(iidSampletype = 'r_usr_f'){
+     	iidSampletype=tryCatch({
+     		 get(iidSampletype)(1)
+     		 get(iidSampletype)(1:2)
+     		 get(iidSampletype)(10)
+     	},
+     	error = function(err){
+     	return("rnorm");
+     	},
+     	warning =  function(war){
+     	return("rnorm");
+     	}
+     	)
+     }
+    }
     iidSampletype.f = get(iidSampletype)
     Zmat = matrix(iidSampletype.f(nPsep*sampleN),ncol=nPsep)
     uuz = paste("LPS",1:nPsep,sep='')
