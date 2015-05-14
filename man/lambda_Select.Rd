@@ -3,7 +3,7 @@
 \title{Select Lambda using Dr Zhou's approach}
 \usage{
 lambda_Select(Yvec, Xmat, lambdas = seq(from = 0.001, to = 1, length.out =
-  50), nPsep = 20, perc = 0.2, ...)
+  50), nPsep = 20, perc = 0.2,iidSampletype = "rnorm", ...)
 }
 \arguments{
 \item{Yvec}{Y vector(n)}
@@ -15,6 +15,9 @@ lambda_Select(Yvec, Xmat, lambdas = seq(from = 0.001, to = 1, length.out =
 \item{nPsep}{Number of independent simulation data.}
 
 \item{perc}{Stopping percentage}
+
+\item{iidSampletype}{Random number generator.
+It could be any R random number generator which 1 accpet only sample size as parameter,2 should be vectorized.}
 }
 \value{
 result Result from glmnet
