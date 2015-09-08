@@ -1,5 +1,6 @@
 import(quadprog)
 import(glmnet)
+import(amap)
 useDynLib(optimise2)
 export(lmcholsolve)
 export(optimise2)
@@ -8,4 +9,4 @@ export(lambda_Select)
 export(print.lambda_select)
 export(summary.lambda_select)
 export(predict.lambda_select)
-
+export(xixireg.isotonic)

@@ -8,5 +8,5 @@ Maintainer: Yifan Yang <yifan.yang@uky.edu>
 Description: The rule used here is gsl_min_fminimizer_quad_golden with more
     than one guess. Constrained (linear/equal region ) MLE. Lambda Selection
 License: GPL
-Depends: Rcpp (>= 0.10.2), RcppGSL, quadprog, glmnet
+Depends: Rcpp (>= 0.10.2), RcppGSL, quadprog, glmnet, amap
 NeedsCompilation: yes

@@ -16,6 +16,13 @@ fix_missing_names <-function(x){
     x
 }
 
+cudaglmnetwrap <- function(x,y,lam){
+    library(cudaglmnet)
+	U = list();
+	for (lami in lam) U[[as.character(lami)]] = cudaglmnet(x,y,lami)
+	re = list(lambda = lam, beta = sapply(U,"[[","beta"))
+	return(re);
+}
 
 #' Select Lambda using Dr Zhou's approach
 #'
@@ -38,7 +45,7 @@ fix_missing_names <-function(x){
 #' lambda_Select(Yvec,Xmat)
 lambda_Select <- function(
                         Yvec,Xmat,lambdas=seq(from=.001,to=1,length.out=50),nPsep=20,perc = .2,
-                        iidSampletype = "rnorm",...){
+                        iidSampletype = "rnorm",cuda=FALSE,...){
     u = dim(Xmat)
     lambdas = sort(lambdas)
     # debug if (!("sizei"%in%ls())) sizei = 10L
@@ -70,12 +77,19 @@ lambda_Select <- function(
     colnames(Zmat) = uuz
 
     Xmat = fix_missing_names(cbind(Xmat,Zmat))
-
-    re = glmnet( Xmat,
+    if (!cuda){
+            re = glmnet( Xmat,
             Yvec,
             lambda=lambdas,
             ...
+            )}else{
+			re = cudaglmnetwrap( 
+			Xmat,
+            Yvec,
+            lambdas
             )
+			
+			}
 
     xlabel = colnames(Xmat)
     nperc = ceiling(sizei*perc)
