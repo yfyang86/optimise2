@@ -54,7 +54,7 @@ lambda_Select <- function(
     sampleN = u[1]
     samplep = u[2]
     if (!(iidSampletype%in%c('rnorm','rf','rt','rchisq','rbin'))){
-    	iidSampletype = "rnorm";
+    	iidSampletype == "rnorm";
     }else{
      if(iidSampletype = 'r_usr_f'){
      	iidSampletype=tryCatch({
