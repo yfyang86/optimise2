@@ -117,3 +117,11 @@ Test on verification set:
  optimise(f, c(1.5, 11))  # WRONG!!!
  optimise2(f, c(1.5, 11), tol = 1e-06)
  ```
+ 
+ PLCP
+ ======
+ 
+ Piecewise linear change point.
+ 
+ ![PLCP](./instr/doc/PLCP.png)
+ 
