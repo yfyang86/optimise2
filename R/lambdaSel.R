@@ -56,7 +56,7 @@ lambda_Select <- function(
     if (!(iidSampletype%in%c('rnorm','rf','rt','rchisq','rbin'))){
     	iidSampletype == "rnorm";
     }else{
-     if(iidSampletype = 'r_usr_f'){
+     if(iidSampletype == 'r_usr_f'){
      	iidSampletype=tryCatch({
      		 get(iidSampletype)(1)
      		 get(iidSampletype)(1:2)
