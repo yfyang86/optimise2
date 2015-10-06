@@ -35,14 +35,6 @@ On windows, due to CRAN uses a strange path, you have to do the following
  Example
 ---------------
 
-### optimise2
-
-```r
-f <- function(x) sin(x^2) + x/10
-optimise(f, c(1, 4), tol = 1e-06)
-optimise(f, c(1.5, 11))  # WRONG!!!
-optimise2(f, c(1.5, 11), tol = 1e-06)
-```
 
 ### Lambda Selection
 
