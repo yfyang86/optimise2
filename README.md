@@ -21,8 +21,8 @@ install_github('yfyang86/optimise2')
 
 On windows, due to CRAN uses a strange path, you have to do the following
 
- 1. Create a folder `D:\RCompile\CRANpkg\extralibs64\local`    
- 2. Download [GSL MSVC 10](http://www.icub.org/download/packages/windows/msvc10/gsl-1.14-bin-msvc10.zip) and unzip it to previous path
+ 1. Create a folder `D:\RCompile\CRANpkg\extralibs64\local` (R-3.2.X uses `C:\applications\extsoft`)    
+ 2. Download [GSL MSVC 10](http://www.icub.org/download/packages/windows/msvc10/gsl-1.14-bin-msvc10.zip) and unzip it to previous path(R-3.2.X uses [GSL-1.15-dev-win64](https://oscats.googlecode.com/files/gsl-1.15-dev-win64.zip))    
  3. Then your path include
 
  ```batch
@@ -34,6 +34,15 @@ On windows, due to CRAN uses a strange path, you have to do the following
 
  Example
 ---------------
+
+### optimise2
+
+```r
+f <- function(x) sin(x^2) + x/10
+optimise(f, c(1, 4), tol = 1e-06)
+optimise(f, c(1.5, 11))  # WRONG!!!
+optimise2(f, c(1.5, 11), tol = 1e-06)
+```
 
 ### Lambda Selection
 
